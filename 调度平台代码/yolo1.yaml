@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: 'yolo1-test'
+spec:
+  nodeName: k8s-node3
+  hostNetwork: true
+  containers:
+    - name: yolo1
+      image: yolo_final:v1.0
+      imagePullPolicy: IfNotPresent 
+      volumeMounts:
+      - name: yolov5-master
+        mountPath: "/home/sdr/conda_test/yolo_test/yolov5-master"
+      securityContext:
+        privileged: true
+      command: ["bash"]
+      args: ["-c","sh yolotest.sh"]
+  volumes:
+  - name: yolov5-master
+    hostPath :
+      path: /home/sdr/conda_test/yolo_test/yolov5-master
